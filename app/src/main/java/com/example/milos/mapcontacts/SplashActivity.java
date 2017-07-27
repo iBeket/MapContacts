@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     private String str = null;
     private ProgressDialog dialog;
     private String[] wordSplit;
-    private List<InfoModel> info;
+    private List<InfoModel> info ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
