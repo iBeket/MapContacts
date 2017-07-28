@@ -1,12 +1,8 @@
 package com.example.milos.mapcontacts;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -16,9 +12,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
 
-
+    //private SglHelper sglHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
     }
-
-
+    
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -42,11 +36,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        googleMap.setTrafficEnabled(true);
+        googleMap.setIndoorEnabled(true);
+        googleMap.setBuildingsEnabled(true);
+        googleMap.getUiSettings().setCompassEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        for (int j = 0; j < Data.infoData.size(); j++) {
+            LatLng position = new LatLng(Double.valueOf(Data.infoData.get(j).getLatitude_().substring(0, 2) + "." + Data.infoData.get(j).getLatitude_().substring(2)),
+                    Double.valueOf(Data.infoData.get(j).getLongitude_().substring(0, 2) + "." + (Data.infoData.get(j).getLongitude_().substring(2))));
+            googleMap.addMarker(new MarkerOptions().position(position).title(Data.infoData.get(j).getName_()));
+        }
     }
 }

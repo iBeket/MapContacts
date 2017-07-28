@@ -62,16 +62,16 @@ public class SglHelper extends SQLiteOpenHelper {
     public InfoModel getSingleItem(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[] {KEY_NAME, KEY_EMAIL_ADDRESS, KEY_LATITUDE, KEY_LONGITUDE}, KEY_NAME + "=?",
-                new String[] { String.valueOf(name) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_NAME, KEY_EMAIL_ADDRESS, KEY_LATITUDE, KEY_LONGITUDE}, KEY_NAME + "=?",
+                new String[]{String.valueOf(name)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         try {
-            InfoModel infomodel = new InfoModel(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
+            InfoModel infomodel = new InfoModel(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
             // return single item
             return infomodel;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

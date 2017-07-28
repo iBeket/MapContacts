@@ -6,14 +6,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Milos on 26-Jul-17.
@@ -23,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
     private String str = null;
     private ProgressDialog dialog;
     private String[] wordSplit;
-    private List<InfoModel> info ;
+    static ArrayList<InfoModel> info = new ArrayList<InfoModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +35,10 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //dialog = new ProgressDialog(SplashActivity.this);
-            //dialog.setMessage("Please wait");
-            // dialog.setCancelable(false);
-            // dialog.show();
+            dialog = new ProgressDialog(SplashActivity.this);
+            dialog.setMessage("Please wait");
+            dialog.setCancelable(false);
+            dialog.show();
         }
 
         @Override
@@ -50,26 +49,22 @@ public class SplashActivity extends AppCompatActivity {
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
 
-                SglHelper sglHelper = new SglHelper(getApplicationContext());
+                //SglHelper sglHelper = new SglHelper(getApplicationContext());
 
 
                 while ((str = in.readLine()) != null) {
                     wordSplit = str.split(" ");
 
-                    InfoModel infoModel = new InfoModel(wordSplit[0],wordSplit[1],wordSplit[2],wordSplit[3]);
-
-                    sglHelper.addContact(infoModel);
+                    InfoModel infoModel = new InfoModel();
+                    infoModel.setName_(wordSplit[0]);
+                    infoModel.setEmailAddress_(wordSplit[1]);
+                    infoModel.setLatitude_(wordSplit[2]);
+                    infoModel.setLongitude_(wordSplit[3]);
+                    // sglHelper.addContact(infoModel);
+                    Data.infoData.add(infoModel);
                 }
-                // ArrayList<InfoModel> list = new ArrayList<>();
-                // list.addAll(sglHelper.getAllInfo());
-                // list.toString();
+                //Data.infoData.clear();
 
-                InfoModel infoModel1 = sglHelper.getSingleItem("Dan");
-
-                List<InfoModel> allPersons = sglHelper.getAllInfo();
-                allPersons.toString();
-
-                Log.i("aaaaaa", infoModel1.toString());
                 in.close();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
