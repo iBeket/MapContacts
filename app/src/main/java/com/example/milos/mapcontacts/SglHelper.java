@@ -58,17 +58,17 @@ public class SglHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-  //  Getting single item
+    //  Getting single item
     public InfoModel getSingleItem(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[] {KEY_NAME}, KEY_NAME + "=?",
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[] {KEY_NAME, KEY_EMAIL_ADDRESS, KEY_LATITUDE, KEY_LONGITUDE}, KEY_NAME + "=?",
                 new String[] { String.valueOf(name) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         try {
-            InfoModel infomodel = new InfoModel(cursor.getString(0));
+            InfoModel infomodel = new InfoModel(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
             // return single item
             return infomodel;
         } catch (Exception e){
@@ -105,5 +105,4 @@ public class SglHelper extends SQLiteOpenHelper {
         return contactList;
     }
 }
-
 

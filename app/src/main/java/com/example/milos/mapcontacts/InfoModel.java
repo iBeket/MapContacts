@@ -11,9 +11,11 @@ public class InfoModel {
     private String latitude_;
     private String longitude_;
 
-    public InfoModel(String name) {
+    public InfoModel(String name, String emailAddress, String latitude, String longitude) {
         this.name_ = name;
-       // this.emailAddress_ = emailAddress;
+        this.emailAddress_ = emailAddress;
+        this.latitude_ = latitude;
+        this.longitude_ = longitude;
     }
 
     public InfoModel() {

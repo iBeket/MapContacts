@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             super.onPreExecute();
             //dialog = new ProgressDialog(SplashActivity.this);
             //dialog.setMessage("Please wait");
-           // dialog.setCancelable(false);
+            // dialog.setCancelable(false);
             // dialog.show();
         }
 
@@ -56,11 +56,7 @@ public class SplashActivity extends AppCompatActivity {
                 while ((str = in.readLine()) != null) {
                     wordSplit = str.split(" ");
 
-                    InfoModel infoModel = new InfoModel();
-                    infoModel.setName_(wordSplit[0]);
-                    infoModel.setEmailAddress_(wordSplit[1]);
-                    infoModel.setLatitude_(wordSplit[2]);
-                    infoModel.setLongitude_(wordSplit[3]);
+                    InfoModel infoModel = new InfoModel(wordSplit[0],wordSplit[1],wordSplit[2],wordSplit[3]);
 
                     sglHelper.addContact(infoModel);
                 }
@@ -69,6 +65,9 @@ public class SplashActivity extends AppCompatActivity {
                 // list.toString();
 
                 InfoModel infoModel1 = sglHelper.getSingleItem("Dan");
+
+                List<InfoModel> allPersons = sglHelper.getAllInfo();
+                allPersons.toString();
 
                 Log.i("aaaaaa", infoModel1.toString());
                 in.close();
@@ -83,10 +82,10 @@ public class SplashActivity extends AppCompatActivity {
 
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-           // if (dialog.isShowing()) {
-              //  dialog.dismiss();
-                Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
-                startActivity(intent);
+            // if (dialog.isShowing()) {
+            //  dialog.dismiss();
+            Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
+            startActivity(intent);
             //}
         }
     }
